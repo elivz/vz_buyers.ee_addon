@@ -7,7 +7,7 @@ $lang = array(
     'col_name' => 'Name',
     'col_date' => 'Date',
     'col_details' => 'Details',
-    'total' => 'Total:',
+    'total' => 'Total Quantity:',
   
     ''=>''
 );

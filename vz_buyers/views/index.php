@@ -25,11 +25,7 @@ foreach ($orders as $order)
 
 // Total quantity
 $this->table->add_row(
-    '<strong>'.lang('total').'</strong>',
-    '<strong>'.$total_qty.'</strong>',
-    '',
-    '',
-    ''
+    array('data' => lang('total').' '.$total_qty, 'class' => 'title', 'colspan' => 5)
 );
 
 echo $this->table->generate();
