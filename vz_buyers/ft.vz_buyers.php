@@ -21,24 +21,7 @@ class Vz_buyers_ft extends EE_Fieldtype {
 	function Vz_buyers_ft()
 	{
         parent::EE_Fieldtype();
-
-        $this->cache =& $this->EE->session->cache['vz_buyers'];
 	}
-	
-	/**
-	 * Include the CSS styles, but only once
-	 */
-	private function _include_css()
-	{
-        if ( empty($this->cache['css']) )
-        {
-            $this->EE->cp->add_to_head('<style type="text/css">
-                .vz_buyers { }
-            </style>');
-        	
-        	$this->cache['css'] = TRUE;
-        }
-    }
 
 	// --------------------------------------------------------------------
 	    
@@ -49,12 +32,16 @@ class Vz_buyers_ft extends EE_Fieldtype {
     {
         $this->EE->load->library('table');
 		$this->EE->lang->loadfile('vz_buyers');
-        $this->_include_css();
+
+        // Make sure the entry has been saved
+        if ( empty($_GET['entry_id']) ) {
+            return '<p>'.lang('not_saved').'</p>';
+        }
 
         // Get everything we need from the database
         $this->EE->db->select('store_order_items.order_id, store_order_items.item_qty, store_orders.order_date, store_orders.order_email, store_orders.billing_name');
         $this->EE->db->from('store_order_items');
-        $this->EE->db->where('store_order_items.entry_id', $this->field_id);
+        $this->EE->db->where('store_order_items.entry_id', $_GET['entry_id']);
         $this->EE->db->join('store_orders', 'store_orders.order_id = store_order_items.order_id');
         $orders = $this->EE->db->get()->result_array();
 
