@@ -57,7 +57,7 @@ class Vz_buyers_ft extends EE_Fieldtype {
     /**
      * Display Tag
      */
-    function replace_tag($address, $params=array(), $tagdata=FALSE)
+    function replace_tag($field_data, $params=array(), $tagdata=FALSE)
     {
         /* TODO: Output a list of buyers */
     }
