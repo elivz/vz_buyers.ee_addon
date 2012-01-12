@@ -37,9 +37,13 @@ class Vz_buyers_ft extends EE_Fieldtype {
                     ->join('store_orders', 'store_orders.order_id = store_order_items.order_id')
                     ->get()->result_array();
 
+        // Create the url for the CSV download
+        $csv_action = $this->EE->cp->fetch_action_id('Vz_buyers', 'print_csv');
+        $csv_url = $csv_action ? '<a href="'.$this->EE->functions->fetch_site_index(0,0).QUERY_MARKER.'ACT='.$csv_action.AMP.'entry_id='.$_GET['entry_id'].'">Download CSV</a>' : '';
+        
         $data = array(
             'orders' => $orders,
-            'csv_url' => $this->EE->functions->fetch_site_index(0,0).QUERY_MARKER.'ACT='.$this->EE->cp->fetch_action_id('Vz_buyers', 'print_csv').AMP.'entry_id='.$_GET['entry_id']
+            'csv_url' => $csv_url
         );
 		
         return $this->EE->load->view('index', $data, true);

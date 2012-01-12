@@ -27,7 +27,7 @@ foreach ($orders as $order)
 $this->table->add_row(
     array('data' => lang('total'), 'class' => 'title'),
     array('data' => $total_qty, 'class' => 'title', 'colspan' => 3),
-    array('data' => "<a href='$csv_url'>Download CSV</a>")
+    array('data' => $csv_url, 'class' => 'title')
 );
 
 echo $this->table->generate();
