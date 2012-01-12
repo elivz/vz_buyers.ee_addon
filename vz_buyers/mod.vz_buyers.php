@@ -22,6 +22,7 @@
  * @category	Module
  * @author		Eli Van Zoeren
  * @link		http://elivz.com
+ * @license     http://creativecommons.org/licenses/by-sa/3.0/ Attribution-Share Alike 3.0 Unported
  */
 
 class Vz_buyers {
