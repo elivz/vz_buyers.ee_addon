@@ -14,14 +14,6 @@ class Vz_buyers_ft extends EE_Fieldtype {
         'name'      => 'VZ Buyers',
         'version'   => '1.0',
     );
-    
-	/**
-	 * Fieldtype Constructor
-	 */
-	function Vz_buyers_ft()
-	{
-        parent::EE_Fieldtype();
-	}
 
 	// --------------------------------------------------------------------
 	    
@@ -39,14 +31,15 @@ class Vz_buyers_ft extends EE_Fieldtype {
         }
 
         // Get everything we need from the database
-        $this->EE->db->select('store_order_items.order_id, store_order_items.item_qty, store_orders.order_date, store_orders.order_email, store_orders.billing_name');
-        $this->EE->db->from('store_order_items');
-        $this->EE->db->where('store_order_items.entry_id', $_GET['entry_id']);
-        $this->EE->db->join('store_orders', 'store_orders.order_id = store_order_items.order_id');
-        $orders = $this->EE->db->get()->result_array();
+        $orders = $this->EE->db->select('store_order_items.order_id, store_order_items.item_qty, store_orders.order_date, store_orders.order_email, store_orders.billing_name')
+                    ->from('store_order_items')
+                    ->where('store_order_items.entry_id', $_GET['entry_id'])
+                    ->join('store_orders', 'store_orders.order_id = store_order_items.order_id')
+                    ->get()->result_array();
 
         $data = array(
-            'orders' => $orders
+            'orders' => $orders,
+            'csv_url' => $this->EE->functions->fetch_site_index(0,0).QUERY_MARKER.'ACT='.$this->EE->cp->fetch_action_id('Vz_buyers', 'print_csv').AMP.'entry_id='.$_GET['entry_id']
         );
 		
         return $this->EE->load->view('index', $data, true);
