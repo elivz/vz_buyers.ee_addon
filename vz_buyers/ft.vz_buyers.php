@@ -52,6 +52,7 @@ class Vz_buyers_ft extends EE_Fieldtype {
         $orders = $this->EE->db->select('store_order_items.order_id, store_order_items.item_qty, store_orders.order_date, store_orders.order_email, store_orders.billing_name')
                     ->from('store_order_items')
                     ->where('store_order_items.entry_id', $_GET['entry_id'])
+                    ->where('store_order_items.order_completed_date >', 0)
                     ->join('store_orders', 'store_orders.order_id = store_order_items.order_id')
                     ->get()->result_array();
 
